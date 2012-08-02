@@ -324,8 +324,9 @@ module Redmine
         pdf.Cell(70, 20, project.to_s)
         pdf.Ln
         pdf.SetFontStyle('B',9)
-        
-        subject_width = 100
+       
+        # broj znakova u tekstu 
+        subject_width = 120
         header_heigth = 5
         
         headers_heigth = header_heigth
@@ -408,7 +409,7 @@ module Redmine
         pdf.SetX(15)
         pdf.Cell(subject_width+g_width-15, headers_heigth, "", 1)
         
-        # Tasks
+        # Subject - Tasks
         top = headers_heigth + y_start
         pdf.SetFontStyle('B',7)
         gantt.events.each do |i|
@@ -417,7 +418,9 @@ module Redmine
           
           text = ""
           if i.is_a? Issue
-            text = "#{i.tracker} #{i.id}: #{i.subject}"
+            #text = "#{i.tracker} #{i.id}: #{i.subject}"
+            #izbacimo iz prikaza
+            text = "#{i.id}: #{i.subject}"
           else
             text = i.name
           end
